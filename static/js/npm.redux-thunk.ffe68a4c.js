@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunklotus_denova_web_client=self.webpackChunklotus_denova_web_client||[]).push([["427"],{598:function(n,e,t){function u(n){return({dispatch:e,getState:t})=>u=>c=>"function"==typeof c?c(e,t,n):u(c)}t.d(e,{I:function(){return c},c:function(){return o}});var c=u(),o=u}}]);
