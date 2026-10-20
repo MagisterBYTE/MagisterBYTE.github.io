@@ -1130,6 +1130,37 @@ async function createWasm() {
 
   
 
+  function _GetBrowserFingerprint() {
+          // Собираем уникальные параметры железа и софта
+          var canvas = document.createElement('canvas');
+          var ctx = canvas.getContext('2d');
+          if(ctx) {
+              ctx.textBaseline = "top";
+              ctx.font = "14px 'Arial'";
+              ctx.fillStyle = "#f60";
+              ctx.fillRect(125,1,62,20);
+              ctx.fillStyle = "#069";
+              ctx.fillText("Fingerprint_Game_2026", 2, 15);
+          }
+          
+          // Хэшируем Canvas + данные о системе
+          var str = canvas.toDataURL() + navigator.userAgent + navigator.language + screen.colorDepth + navigator.hardwareConcurrency;
+          var hash = 0;
+          for (var i = 0; i < str.length; i++) {
+              var char = str.charCodeAt(i);
+              hash = ((hash << 5) - hash) + char;
+              hash = hash & hash;
+          }
+          
+          var returnStr = Math.abs(hash).toString(16);
+          
+          // Выделяем память Emscripten для передачи строки в C#
+          var bufferSize = lengthBytesUTF8(returnStr) + 1;
+          var buffer = _malloc(bufferSize);
+          stringToUTF8(returnStr, buffer, bufferSize);
+          return buffer;
+      }
+
   function _GetJSLoadTimeInfo(loadTimePtr) {
     loadTimePtr = (loadTimePtr >> 2);
     HEAPU32[loadTimePtr] = Module.pageStartupTime || 0;
@@ -16925,6 +16956,8 @@ function assignWasmExports(wasmExports) {
 }
 
 var wasmImports = {
+  /** @export */
+  GetBrowserFingerprint: _GetBrowserFingerprint,
   /** @export */
   GetJSLoadTimeInfo: _GetJSLoadTimeInfo,
   /** @export */
