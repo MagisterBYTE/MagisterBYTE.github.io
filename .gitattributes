@@ -1,0 +1,21 @@
+# Text files: keep LF so GitHub Pages and browsers see the same bytes on every OS
+* text=auto eol=lf
+
+# Unity WebGL binaries — never convert line endings
+*.wasm  binary
+*.data  binary
+*.br    binary
+*.gz    binary
+*.bundle binary
+*.unityweb binary
+
+# Images and other media
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.webp  binary
+*.wav   binary
+*.mp3   binary
+*.ogg   binary

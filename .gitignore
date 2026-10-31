@@ -1,0 +1,9 @@
+# OS / editor junk that should never be uploaded
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.log
+.vs/
+.idea/
+*.user
+*.suo
